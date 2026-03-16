@@ -72,4 +72,33 @@ class IndentationSpec {
             assertThat(Indentation(config).lint(code)).isEmpty()
         }
     }
+    
+
+    @Nested
+    inner class `indentation style tab` {
+
+        val code = "fun main() {\n\tprintln()\n}"
+
+        @Nested
+        inner class `indentation style config of default` {
+
+            @Test
+            fun `reports wrong indentation style`() {
+                assertThat(subject.lint(code)).hasSize(1)
+            }
+
+            @Test
+            fun `places finding location to the indentation`() {
+                assertThat(subject.lint(code)).singleElement()
+                    .hasStartSourceLocation(2, 1)
+                    .hasTextLocation(13 to 14)
+            }
+        }
+
+        @Test
+        fun `does not report when using an indentation style config of tab`() {
+            val config = TestConfig("indentStyle" to "tab")
+            assertThat(Indentation(config).lint(code)).isEmpty()
+        }
+    }
 }

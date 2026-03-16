@@ -242,6 +242,9 @@ class KtlintWrapperProvider : RuleSetProvider {
     companion object {
         @Configuration("ktlint code style for formatting rules (ktlint_official, intellij_idea or android_studio)")
         val code_style by ruleSetConfig("intellij_idea")
+        
+        @Configuration("style of indentation to use (space or tab)")
+        val indentStyle by ruleSetConfig("indentStyle")
 
         @Configuration("if rules should auto correct style violation")
         val autoCorrect by ruleSetConfig(true)
